@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linyelai.mapper.AuthCodeMapper">
+
+    <resultMap id="BaseResultMap" type="AuthCodePO">
+        <id column="id" property="id" />
+        <result column="auth_code" property="authCode" />
+        <result column="create_time" property="createTime" />
+        <result column="expired_time" property="expiredTime" />
+    </resultMap>
+
+    <select id="getAuthCode" resultMap="BaseResultMap">
+        SELECT * FROM captcha where auth_code = #{authCode}
+    </select>
+
+    <insert id="addAuthCode" parameterType="AuthCodePO">
+        insert into captcha(auth_code,create_time,expired_time)values(#{authCodePO.authCode},#{authCodePO.createTime},#{authCodePO.expiredTime})
+    </insert>
+
+
+</mapper>

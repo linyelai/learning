@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linyelai.mapper.ShopMapper">
+    <resultMap id="BaseResultMap" type="com.linyelai.po.ShopPO">
+        <id column="shop_id" property="shopId" jdbcType="BIGINT" />
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+        <result column="shop_logo" property="shopLogo" jdbcType="VARCHAR" />
+        <result column="shop_description" property="shopDescription" jdbcType="LONGVARCHAR" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="shop_status" property="shopStatus" jdbcType="TINYINT" />
+        <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+        <result column="contact_email" property="contactEmail" jdbcType="VARCHAR" />
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        <result column="district" property="district" jdbcType="VARCHAR" />
+        <result column="detailed_address" property="detailedAddress" jdbcType="VARCHAR" />
+        <result column="longitude" property="longitude" jdbcType="DECIMAL" />
+        <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+        <result column="business_license" property="businessLicense" jdbcType="VARCHAR" />
+        <result column="tax_registration_number" property="taxRegistrationNumber" jdbcType="VARCHAR" />
+        <result column="organization_code" property="organizationCode" jdbcType="VARCHAR" />
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        shop_id, shop_name, shop_logo, shop_description, user_id, shop_status,
+        contact_phone, contact_email, province, city, district, detailed_address,
+        longitude, latitude, business_license, created_time, updated_time, deleted
+    </sql>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM shop
+        WHERE shop_id = #{shopId} AND deleted = 0
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM shop
+        WHERE deleted = 0
+        <if test="shopName != null and shopName != ''">
+            AND shop_name LIKE CONCAT('%', #{shopName}, '%')
+        </if>
+        <if test="shopStatus != null">
+            AND shop_status = #{shopStatus}
+        </if>
+        ORDER BY created_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="int">
+        SELECT COUNT(1)
+        FROM shop
+        WHERE deleted = 0
+        <if test="shopName != null and shopName != ''">
+            AND shop_name LIKE CONCAT('%', #{shopName}, '%')
+        </if>
+        <if test="shopStatus != null">
+            AND shop_status = #{shopStatus}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.linyelai.po.ShopPO"
+            useGeneratedKeys="true" keyProperty="shopId">
+        INSERT INTO shop (
+        shop_name, shop_logo, shop_description,
+        user_id, shop_status, contact_phone,
+        contact_email, province, city,
+        district, detailed_address, longitude,
+        latitude, business_license, tax_registration_number,
+        organization_code, created_time, updated_time
+        ) VALUES (
+        #{shopName}, #{shopLogo}, #{shopDescription},
+        #{userId}, #{shopStatus}, #{contactPhone},
+        #{contactEmail}, #{province}, #{city},
+        #{district}, #{detailedAddress}, #{longitude},
+        #{latitude}, #{businessLicense}, #{taxRegistrationNumber},
+        #{organizationCode}, #{createdTime}, #{updatedTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE shop
+        <set>
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="shopLogo != null">shop_logo = #{shopLogo},</if>
+            <if test="shopDescription != null">shop_description = #{shopDescription},</if>
+            <if test="shopStatus != null">shop_status = #{shopStatus},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+            <if test="contactEmail != null">contact_email = #{contactEmail},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="district != null">district = #{district},</if>
+            <if test="detailedAddress != null">detailed_address = #{detailedAddress},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="businessLicense != null">business_license = #{businessLicense},</if>
+            <if test="taxRegistrationNumber != null">tax_registration_number = #{taxRegistrationNumber},</if>
+            <if test="organizationCode != null">organization_code = #{organizationCode},</if>
+            updated_time = NOW()
+        </set>
+        WHERE
+        shop_id = #{shopId}
+        AND deleted = 0
+    </update>
+
+    <update id="deleteById">
+        UPDATE shop
+        SET deleted = 1
+        WHERE shop_id = #{shopId}
+    </update>
+</mapper>
