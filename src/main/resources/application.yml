@@ -39,3 +39,7 @@ mybatis:
   type-aliases-package: com.linyelai.po   # 实体类包路径
   configuration:
     map-underscore-to-camel-case: true
+zookeeper:
+    host: localhost:2181
+    baseSleepTimeMs: 1000
+    maxRetries: 3
