@@ -43,3 +43,9 @@ zookeeper:
     host: localhost:2181
     baseSleepTimeMs: 1000
     maxRetries: 3
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket-name: mybucket
+  secure: false

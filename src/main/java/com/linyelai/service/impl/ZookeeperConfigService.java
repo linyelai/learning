@@ -45,6 +45,6 @@ public class ZookeeperConfigService {
                         System.out.println("New children: " + newChildren);
                     }
                 })
-                .forPath(path);
+                 .forPath(path);
     }
 }
