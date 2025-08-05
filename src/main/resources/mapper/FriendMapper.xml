@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linyelai.mapper.FriendMapper">
+
+    <resultMap id="BaseResultMap" type="FriendPO">
+        <id column="id" property="id" />
+        <result column="user_id" property="username" />
+        <result column="friend_id" property="password" />
+        <result column="friend_name" property="friendName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <select id="findByUserId" resultMap="BaseResultMap">
+        SELECT * FROM user_friend where user_id= #{userId}
+    </select>
+
+    <insert id="addFriend" parameterType="FriendPO">
+        insert into user_friend(user_id,friend_id,friend_name,create_time,update_time)values(#{friend.userId},#{friend.friend_id},#{friend.createTime},#{friend.updateTime})
+    </insert>
+
+    <update id="updateFriend" parameterType="FriendPO">
+        update user_friend
+        <set>
+            <if test="friendName!=null">friend_name=#{friend.friendName}</if>
+            <if test="update_time!=null">update_time=#{friend.updateTime}</if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <update id="deleteFriend" parameterType="java.lang.Long">
+        update user_friend set deleted = 1 where id =#{id}
+    </update>
+
+</mapper>

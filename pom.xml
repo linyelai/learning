@@ -13,8 +13,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+<!--        <maven.compiler.source>17</maven.compiler.source>-->
+<!--        <maven.compiler.target>17</maven.compiler.target>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jwt.version>0.11.5</jwt.version>
     </properties>
@@ -100,11 +100,11 @@
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>3.16.8</version>
         </dependency>
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv-platform</artifactId>
-            <version>1.5.7</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.bytedeco</groupId>-->
+<!--            <artifactId>javacv-platform</artifactId>-->
+<!--            <version>1.5.7</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
