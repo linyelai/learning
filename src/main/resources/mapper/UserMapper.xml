@@ -15,6 +15,10 @@
         SELECT * FROM user where username= #{username}
     </select>
 
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT * FROM user where id= #{id}
+    </select>
+
     <insert id="addUser" parameterType="UserPO">
         insert into user(username,password,create_time,update_time)values(#{user.username},#{user.password},#{user.createTime},#{user.updateTime})
     </insert>

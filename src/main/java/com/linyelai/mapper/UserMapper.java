@@ -11,4 +11,6 @@ public interface UserMapper {
      int addUser(@Param("user")UserPO userPO);
      int updateUser(@Param("user")UserPO userPO);
      int deleteUser(@Param("id")Long id);
+
+    UserPO findById(@Param("id")Long id);
 }

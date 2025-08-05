@@ -16,8 +16,12 @@
         SELECT * FROM user_friend where user_id= #{userId}
     </select>
 
+    <select id="findByUserIdAndFriend" resultMap="BaseResultMap">
+        SELECT * FROM user_friend where user_id= #{userId} and friend_id=#{friendId}
+    </select>
+
     <insert id="addFriend" parameterType="FriendPO">
-        insert into user_friend(user_id,friend_id,friend_name,create_time,update_time)values(#{friend.userId},#{friend.friend_id},#{friend.createTime},#{friend.updateTime})
+        insert into user_friend(user_id,friend_id,friend_name,create_time,update_time,status)values(#{friend.userId},#{friend.friend_id},#{friend.createTime},#{friend.updateTime},0)
     </insert>
 
     <update id="updateFriend" parameterType="FriendPO">
@@ -30,7 +34,7 @@
     </update>
 
     <update id="deleteFriend" parameterType="java.lang.Long">
-        update user_friend set deleted = 1 where id =#{id}
+        update user_friend set deleted = 1 where user_id =#{userId} and friend_id=#{friendId}
     </update>
 
 </mapper>
